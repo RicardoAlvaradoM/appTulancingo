@@ -1,5 +1,4 @@
 <?php 
-
 require '../connect.php';
 $con = connectDB();
 
@@ -111,7 +110,7 @@ $search_query = mysqli_query($con, $sql);
                                 <th data-field="Costo">Costo</th>
                                 <th data-field="Requisitos">Requisitos</th>
                                 <th>Modificar</th>
-                                <th>Eliminaer</th>
+                                <th>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -122,8 +121,8 @@ $search_query = mysqli_query($con, $sql);
                              <td><?php echo $row['unit_admin']; ?></td>
                              <td><?php echo $row['price']; ?></td>
                              <td><?php echo $row['requisito']; ?></td>
-                             <td><a href="modificarT.php?id=<?php echo $row['idservicio']; ?>"><span class="glyphicon glyphicon-trash"></span></a></td>
-                <td><a href="#" data-href="eliminartram.php?id=<?php echo $row['id_servicio']; ?>" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-trash"></span></a></td>
+                             <td><a href="modificarT.php?id=<?php echo $row['idservicio']; ?>"><img src="../assets/img/edit1.png" style="width:70%"></a></td>
+                <td><a href="#" data-href="eliminartram.php?id=<?php echo $row['id_servicio']; ?>" data-toggle="modal" data-target="#confirm-delete"><img src="../assets/img/delete.png" style="width:90%"></a></td>
                            </tr>
                           <?php }?>
 
@@ -131,10 +130,41 @@ $search_query = mysqli_query($con, $sql);
                     </table>
                 </div>
             </div>
+            <div class="row">
+    <button>Nuevo registro</button>
+  </div>
   </div>
   <!-- Finaliza la busqueda-->
-
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+        <div class="modal-content">
+          
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Eliminar Registro</h4>
+          </div>
+          
+          <div class="modal-body">
+            ¿Desea eliminar este registro?
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-danger btn-ok">Delete</a>
+          </div>
+        </div>
+      </div>
+</div>
  
+<script>
+      $('#confirm-delete').on('show.bs.modal', function(e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        
+        $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
+      });
+    </script> 
+
+
 </div><br>
         <!-- Footer -->   
        
@@ -205,5 +235,8 @@ $search_query = mysqli_query($con, $sql);
 
 })(document);
         </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
